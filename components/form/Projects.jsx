@@ -1,6 +1,7 @@
 import FormButton from "./FormButton";
 import React, { useContext } from "react";
-import { ResumeContext } from "../../pages/builder";
+import { ResumeContext } from "../../contexts/ResumeContext";
+import { FaTimes, FaPlus } from "react-icons/fa";
 
 const Projects = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
@@ -12,40 +13,44 @@ const Projects = () => {
   };
 
   const addProjects = () => {
+    const newProject = {
+      id: Date.now() + Math.random(), // Generate unique ID
+      title: "",
+      link: "",
+      description: "",
+      keyAchievements: "",
+      startYear: "",
+      endYear: "",
+    };
     setResumeData({
       ...resumeData,
-      projects: [
-        ...resumeData.projects,
-        {
-          title: "",
-          link: "",
-          description: "",
-          keyAchievements: "",
-          startYear: "",
-          endYear: "",
-        },
-      ],
+      projects: [...resumeData.projects, newProject],
     });
   };
 
-  const removeProjects = (index) => {
-    const newProjects = [...resumeData.projects];
-    newProjects[index] = newProjects[newProjects.length - 1];
-    newProjects.pop();
+  const removeProjects = (id) => {
+    const newProjects = resumeData.projects.filter(project => {
+      const projectId = project.id || `${project.title}-${project.description}`;
+      return projectId !== id;
+    });
     setResumeData({ ...resumeData, projects: newProjects });
   };
 
   return (
     <div className="flex-col-gap-2">
       <h2 className="input-title">Projects</h2>
-      {resumeData.projects.map((project, index) => (
-        <div key={index} className="f-col">
+      {resumeData.projects.map((project, index) => {
+        const projectId = project.id || `${project.title}-${project.description}`;
+        const stableKey = project.id || `${project.title}-${project.description}-${index}`;
+        return (
+        <div key={stableKey} className="relative border border-gray-300 rounded-lg p-3 bg-white/50">
+          <div className="f-col">
           <input
             type="text"
             placeholder="Project Name"
-            name="name"
+            name="title"
             className="w-full other-input"
-            value={project.name}
+            value={project.title}
             onChange={(e) => handleProjects(e, index)}
           />
           <input
@@ -91,13 +96,28 @@ const Projects = () => {
               onChange={(e) => handleProjects(e, index)}
             />
           </div>
+          </div>
+          {resumeData.projects.length > 1 && (
+            <button
+              type="button"
+              onClick={() => removeProjects(projectId)}
+              className="absolute top-2 right-2 p-1 text-red-600 hover:text-red-800 hover:bg-red-50 rounded transition-colors"
+              title="Remove this project"
+            >
+              <FaTimes size={12} />
+            </button>
+          )}
         </div>
-      ))}
-      <FormButton
-        size={resumeData.projects.length}
-        add={addProjects}
-        remove={removeProjects}
-      />
+        );
+      })}
+      <button
+        type="button"
+        onClick={addProjects}
+        className="flex items-center gap-2 p-2 bg-slate-600 text-white rounded hover:bg-slate-700 transition-colors"
+      >
+        <FaPlus size={12} />
+        <span>Add Project</span>
+      </button>
     </div>
   );
 };

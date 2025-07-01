@@ -22,6 +22,7 @@ const DefaultResumeData = {
   summary: "Resourceful Developer with 11 years of experience in designing and developing user interfaces, testing and training employees. Skilled at utilizing a wide variety of tools and programs to provide effective applications.",
   education: [
     {
+      "id": "edu_default_1",
       "school": "Bachelor of Computer Science",
       "degree": "New York University",
       "startYear": "2020-08-20",
@@ -30,6 +31,7 @@ const DefaultResumeData = {
   ],
   workExperience: [
     {
+      "id": "work_default_1",
       "company": "Torph TTC",
       "position": "Developer",
       "description": "Torph TTC is a global software company that offers user interface UI development tools and components for a range of developer applications across all platforms.",
@@ -38,6 +40,7 @@ const DefaultResumeData = {
       "endYear": "2023-02-21"
     },
     {
+      "id": "work_default_2",
       "company": "Reilty Group",
       "position": "Front End Web Developer",
       "description": "Reilty Group is an industry-leading provider of online gambling software and solutions.",
@@ -46,6 +49,7 @@ const DefaultResumeData = {
       "endYear": "2023-03-09"
     },
     {
+      "id": "work_default_3",
       "company": "HellX",
       "position": "Python Developer",
       "description": "Heller is a Software Editor specialized in logistics management.",

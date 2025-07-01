@@ -1,6 +1,7 @@
 import FormButton from "./FormButton";
 import React, { useContext } from "react";
-import { ResumeContext } from "../../pages/builder";
+import { ResumeContext } from "../../contexts/ResumeContext";
+import { FaTimes, FaPlus } from "react-icons/fa";
 
 const WorkExperience = () => {
   const {
@@ -15,34 +16,38 @@ const WorkExperience = () => {
   };
 
   const addWorkExperience = () => {
+    const newWorkExp = {
+      id: Date.now() + Math.random(), // Generate unique ID
+      company: "",
+      position: "",
+      description: "",
+      keyAchievements: "",
+      startYear: "",
+      endYear: "",
+    };
     setResumeData({
       ...resumeData,
-      workExperience: [
-        ...resumeData.workExperience,
-        {
-          company: "",
-          position: "",
-          description: "",
-          keyAchievements: "",
-          startYear: "",
-          endYear: "",
-        },
-      ],
+      workExperience: [...resumeData.workExperience, newWorkExp],
     });
   };
 
-  const removeWorkExperience = (index) => {
-    const newworkExperience = [...resumeData.workExperience];
-    newworkExperience[index] = newworkExperience[newworkExperience.length - 1];
-    newworkExperience.pop();
+  const removeWorkExperience = (id) => {
+    const newworkExperience = resumeData.workExperience.filter(exp => {
+      const expId = exp.id || `${exp.company}-${exp.position}`;
+      return expId !== id;
+    });
     setResumeData({ ...resumeData, workExperience: newworkExperience });
   };
 
   return (
     <div className="flex-col-gap-2">
       <h2 className="input-title">Work Experience</h2>
-      {resumeData.workExperience.map((workExperience, index) => (
-        <div key={index} className="f-col">
+      {resumeData.workExperience.map((workExperience, index) => {
+        const expId = workExperience.id || `${workExperience.company}-${workExperience.position}`;
+        const stableKey = workExperience.id || `${workExperience.company}-${workExperience.position}-${index}`;
+        return (
+        <div key={stableKey} className="relative border border-gray-300 rounded-lg p-3 bg-white/50">
+          <div className="f-col">
           <input
             type="text"
             placeholder="Company"
@@ -94,13 +99,28 @@ const WorkExperience = () => {
               onChange={(e) => handleWorkExperience(e, index)}
             />
           </div>
+          </div>
+          {resumeData.workExperience.length > 1 && (
+            <button
+              type="button"
+              onClick={() => removeWorkExperience(expId)}
+              className="absolute top-2 right-2 p-1 text-red-600 hover:text-red-800 hover:bg-red-50 rounded transition-colors"
+              title="Remove this work experience"
+            >
+              <FaTimes size={12} />
+            </button>
+          )}
         </div>
-      ))}
-      <FormButton
-        size={resumeData.workExperience.length}
-        add={addWorkExperience}
-        remove={removeWorkExperience}
-      />
+        );
+      })}
+      <button
+        type="button"
+        onClick={addWorkExperience}
+        className="flex items-center gap-2 p-2 bg-slate-600 text-white rounded hover:bg-slate-700 transition-colors"
+      >
+        <FaPlus size={12} />
+        <span>Add Work Experience</span>
+      </button>
     </div>
   );
 };
