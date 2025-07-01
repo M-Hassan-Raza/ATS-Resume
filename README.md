@@ -109,7 +109,7 @@ Key achievements are the most important part of your resume.
 
 ## License
 
-[MIT](https://github.com/sauravhathi/atsresume/blob/main/LICENSE.md)
+[MIT](https://github.com/m-hassan-raza/ats-resume/blob/main/LICENSE.md)
 
 ## Contributing
 
@@ -120,3 +120,49 @@ Please make sure to update tests as appropriate.
 ## Authors and acknowledgment
 
 - [Saurav Hathi](https://github.com/sauravhathi)
+
+## Updates
+
+This project has undergone significant updates since its original fork. Below is a summary of the enhancements made:
+
+### Multi-Resume Management System
+- Implemented a complete resume management system with a dashboard.
+- Features include creating, editing, deleting, duplicating resumes with local storage.
+- Added auto-save functionality with debouncing.
+- Enabled resume naming and renaming capabilities.
+
+### Bug Fixes
+- Resolved critical list item removal bugs across all form components.
+- Fixed React key mismatch issues in Education, WorkExperience, and Projects.
+- Corrected property name inconsistencies (e.g., name vs title).
+- Implemented proper unique ID generation for all list items.
+- Added stable React keys for consistent rendering.
+
+### UI Enhancements
+- Added individual remove buttons with proper hover effects.
+- Replaced fuchsia color scheme with a professional slate theme.
+- Improved form layout with borders and spacing.
+- Added loading states and error handling.
+
+### Keyboard Shortcut Fixes
+- Fixed runtime errors related to keyboard shortcuts.
+- Added null checks for event.key and key parameters.
+- Prevented TypeError when pasting content in text fields.
+
+### Print Functionality Improvements
+- Excluded navigation elements from print output.
+- Added proper CSS classes for print media queries.
+
+### Context API Integration
+- Implemented ResumeContext for form data.
+- Added ResumesContext for multi-resume management.
+- Fixed infinite re-render loops with useCallback.
+
+### Data Persistence and Validation
+- Implemented localStorage-based resume storage.
+- Added data migration for legacy resume format.
+- Ensured backward compatibility with existing data.
+
+## Acknowledgment
+
+This project is a fork of the original work by Saurav Hathi (<https://github.com/sauravhathi>).
